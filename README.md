@@ -15,7 +15,6 @@ gcloud config set project pechenikov-cluster
     - Set premssions:
 
 ```
-
 gcloud projects add-iam-policy-binding pechenikov-cluster \
   --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
   --role="roles/container.admin"
