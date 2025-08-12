@@ -6,13 +6,16 @@ code.
 2. Prerequisites:
     - Install (https://cloud.google.com/sdk/docs/install) and auth with gcloud: `gcloud auth login`
     - Create and set google project:
-```
-gcloud projects create pechenikov-cluster --name="pechenikov-cluster"
-gcloud config set project pechenikov-cluster
-```
+
+`gcloud projects create pechenikov-cluster --name="pechenikov-cluster" \
+gcloud config set project pechenikov-cluster`
+
+
     - Create system user:
+
 `gcloud iam service-accounts create gke-admin-sa --description="Service account to manage GKE clusters" --display-name="GKE Admin Service Account"`
-    - Set premssions:
+
+- Set premssions:
 
 ```
 gcloud projects add-iam-policy-binding pechenikov-cluster \
@@ -52,11 +55,11 @@ gcloud projects add-iam-policy-binding pechenikov-cluster \
 
     - Export json key for service account: 
 
-```
-gcloud iam service-accounts keys create gke-sa-key.json \
-  --iam-account=gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com
 
-```
+`gcloud iam service-accounts keys create gke-sa-key.json \
+  --iam-account=gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com`
+
+
 
     - Create bucket for terraform state: `gcloud storage buckets create gs://pechenikov_cluster_state --location=europe-west1 --uniform-bucket-level-access`
 
