@@ -1,0 +1,25 @@
+wordpressUsername: admin
+wordpressPassword: admin123
+wordpressEmail: admin@example.com
+wordpressBlogName: "My Terraform Blog"
+
+service:
+  type: LoadBalancer  # 👈 This enables external access!
+
+mariadb:
+  enabled: false
+  #auth:
+  #  rootPassword: rootpass
+  #  username: bn_wordpress
+  #  password: wordpresspass
+  #  database: bitnami_wordpress
+
+replicaCount: 2
+
+
+externalDatabase:
+  host: 34.79.158.219
+  port: 3306
+  user: wordpress
+  password: "62BB262788B3278668C68EAFEE134179"
+  database: wordpress_db

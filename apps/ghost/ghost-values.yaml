@@ -1,0 +1,22 @@
+ghostUsername: "admin"
+ghostPassword: "SuperSecretPassword"
+ghostEmail: "admin@example.com"
+ghostBlogTitle: "Ghost with MySQL via Terraform"
+
+
+service:
+  type: LoadBalancer
+
+mysql:
+  ## @param mysql.enabled Deploy a MySQL server to satisfy the applications database requirements
+  ## To use an external database set this to false and configure the `externalDatabase.*` parameters
+  ##
+  enabled: true
+  auth:
+    rootPassword: ""
+    database: bitnami_ghost
+    username: bn_ghost
+    password: ""
+
+replicaCount: 1
+
