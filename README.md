@@ -13,9 +13,9 @@ gcloud config set project pechenikov-cluster`
 
     - Create system user:
 
-`gcloud iam service-accounts create gke-admin-sa --description="Service account to manage GKE clusters" --display-name="GKE Admin Service Account"`
+`gcloud iam service-accounts create gke-admin-sa --description="Service account to manage GKE clusters" --display-name=GKE Admin Service Account`
 
-- Set premssions:
+    - Set premssions:
 
 ```
 gcloud projects add-iam-policy-binding pechenikov-cluster \
