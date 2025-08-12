@@ -7,61 +7,60 @@ code.
     - Install (https://cloud.google.com/sdk/docs/install) and auth with gcloud: `gcloud auth login`
     - Create and set google project:
 
-`gcloud projects create pechenikov-cluster --name="pechenikov-cluster" \
-gcloud config set project pechenikov-cluster`
+        `gcloud projects create pechenikov-cluster --name="pechenikov-cluster" `
+        `gcloud config set project pechenikov-cluster`
 
 
     - Create system user:
 
-`gcloud iam service-accounts create gke-admin-sa --description="Service account to manage GKE clusters" --display-name=GKE Admin Service Account`
+        `gcloud iam service-accounts create gke-admin-sa --description="Service account to manage GKE clusters" --display-name=GKE Admin Service Account`
 
     - Set premssions:
 
-```
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/container.admin"
-    
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/compute.admin"
-  
-  
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/iam.serviceAccountUser"
+            ```
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/container.admin"
+        
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/compute.admin"
+            
+            
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/iam.serviceAccountUser"
 
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/storage.admin"
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/storage.admin"
 
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/storage.objectViewer"
-  
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/storage.bucketViewer"
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/storage.objectViewer"
+            
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/storage.bucketViewer"
 
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/serviceusage.serviceUsageAdmin"
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/serviceusage.serviceUsageAdmin"
 
-gcloud projects add-iam-policy-binding pechenikov-cluster \
-  --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
-  --role="roles/cloudsql.admin"
+            gcloud projects add-iam-policy-binding pechenikov-cluster \
+            --member="serviceAccount:gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com" \
+            --role="roles/cloudsql.admin"
 
-```
+            ```
 
     - Export json key for service account: 
+    
+            `gcloud iam service-accounts keys create gke-sa-key.json --iam-account=gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com`
 
 
-`gcloud iam service-accounts keys create gke-sa-key.json \
-  --iam-account=gke-admin-sa@pechenikov-cluster.iam.gserviceaccount.com`
+    - Create bucket for terraform state: 
 
-
-
-    - Create bucket for terraform state: `gcloud storage buckets create gs://pechenikov_cluster_state --location=europe-west1 --uniform-bucket-level-access`
+            `gcloud storage buckets create gs://pechenikov_cluster_state --location=europe-west1 --uniform-bucket-level-access`
 
 ## Cluster configuration and access to the cluster
 For the purpose of the demo I am using basic pilot configuration of a google kubernetes engine cluster - single node, because of free tier limitations. In production additional node pool configuration is required. The terraform code is at https://github.com/pechenikov/task-sap . The configuration for the cluster is in the root directory. I keep to instances of code - one for cloud resources like the cluster and the database instance and on for the actual apps in folder apps. For the apps (wordpress) terraform is executed from "apps" subfolder.
