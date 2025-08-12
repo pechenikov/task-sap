@@ -7,9 +7,10 @@ code.
     - Install (https://cloud.google.com/sdk/docs/install) and auth with gcloud: `gcloud auth login`
     - Create and set google project:
 
-        `gcloud projects create pechenikov-cluster --name="pechenikov-cluster" `
-        `gcloud config set project pechenikov-cluster`
-
+        ```
+            gcloud projects create pechenikov-cluster --name="pechenikov-cluster" 
+            gcloud config set project pechenikov-cluster
+        ```
 
     - Create system user:
 
